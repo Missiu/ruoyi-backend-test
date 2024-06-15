@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.active.mapper.ActiveUserMapper">
+    
+    <resultMap type="ActiveUser" id="ActiveUserResult">
+        <result property="userId"    column="user_id"    />
+        <result property="realName"    column="real_name"    />
+        <result property="schoolName"    column="school_name"    />
+        <result property="userType"    column="user_type"    />
+        <result property="groupName"    column="group_name"    />
+        <result property="judgeScope"    column="judge_scope"    />
+        <result property="loginName"    column="login_name"    />
+        <result property="password"    column="password"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectActiveUserVo">
+        select user_id, real_name, school_name, user_type, group_name, judge_scope, login_name, password, create_by, create_time, update_by, update_time from active_user
+    </sql>
+
+    <select id="selectActiveUserList" parameterType="ActiveUser" resultMap="ActiveUserResult">
+        <include refid="selectActiveUserVo"/>
+        <where>  
+            <if test="schoolName != null  and schoolName != ''"> and school_name like concat('%', #{schoolName}, '%')</if>
+            <if test="userType != null  and userType != ''"> and user_type = #{userType}</if>
+            <if test="groupName != null  and groupName != ''"> and group_name = #{groupName}</if>
+        </where>
+    </select>
+    
+    <select id="selectActiveUserByUserId" parameterType="Long" resultMap="ActiveUserResult">
+        <include refid="selectActiveUserVo"/>
+        where user_id = #{userId}
+    </select>
+
+    <insert id="insertActiveUser" parameterType="ActiveUser" useGeneratedKeys="true" keyProperty="userId">
+        insert into active_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="realName != null and realName != ''">real_name,</if>
+            <if test="schoolName != null and schoolName != ''">school_name,</if>
+            <if test="userType != null and userType != ''">user_type,</if>
+            <if test="groupName != null">group_name,</if>
+            <if test="judgeScope != null and judgeScope != ''">judge_scope,</if>
+            <if test="loginName != null and loginName != ''">login_name,</if>
+            <if test="password != null and password != ''">password,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="realName != null and realName != ''">#{realName},</if>
+            <if test="schoolName != null and schoolName != ''">#{schoolName},</if>
+            <if test="userType != null and userType != ''">#{userType},</if>
+            <if test="groupName != null">#{groupName},</if>
+            <if test="judgeScope != null and judgeScope != ''">#{judgeScope},</if>
+            <if test="loginName != null and loginName != ''">#{loginName},</if>
+            <if test="password != null and password != ''">#{password},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateActiveUser" parameterType="ActiveUser">
+        update active_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="realName != null and realName != ''">real_name = #{realName},</if>
+            <if test="schoolName != null and schoolName != ''">school_name = #{schoolName},</if>
+            <if test="userType != null and userType != ''">user_type = #{userType},</if>
+            <if test="groupName != null">group_name = #{groupName},</if>
+            <if test="judgeScope != null and judgeScope != ''">judge_scope = #{judgeScope},</if>
+            <if test="loginName != null and loginName != ''">login_name = #{loginName},</if>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where user_id = #{userId}
+    </update>
+
+    <delete id="deleteActiveUserByUserId" parameterType="Long">
+        delete from active_user where user_id = #{userId}
+    </delete>
+
+    <delete id="deleteActiveUserByUserIds" parameterType="String">
+        delete from active_user where user_id in 
+        <foreach item="userId" collection="array" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+    </delete>
+</mapper>
