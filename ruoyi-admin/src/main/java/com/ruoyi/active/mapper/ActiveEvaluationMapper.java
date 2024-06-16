@@ -1,8 +1,9 @@
 package com.ruoyi.active.mapper;
 
-import java.util.List;
 import com.ruoyi.active.domain.ActiveEvaluation;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * 作品评价Mapper接口

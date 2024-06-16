@@ -1,32 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.active.mapper.ActiveFileMapper">
-    
+
     <resultMap type="ActiveFile" id="ActiveFileResult">
-        <result property="fileId"    column="file_id"    />
-        <result property="workId"    column="work_id"    />
-        <result property="fileCategory"    column="file_category"    />
-        <result property="fileName"    column="file_name"    />
-        <result property="fileStoragePath"    column="file_storage_path"    />
-        <result property="uploadedAt"    column="uploaded_at"    />
+        <result property="fileId" column="file_id"/>
+        <result property="workId" column="work_id"/>
+        <result property="fileCategory" column="file_category"/>
+        <result property="fileName" column="file_name"/>
+        <result property="fileStoragePath" column="file_storage_path"/>
+        <result property="uploadedAt" column="uploaded_at"/>
     </resultMap>
 
     <sql id="selectActiveFileVo">
-        select file_id, work_id, file_category, file_name, file_storage_path, uploaded_at from active_file
+        select file_id, work_id, file_category, file_name, file_storage_path, uploaded_at
+        from active_file
     </sql>
 
     <select id="selectActiveFileList" parameterType="ActiveFile" resultMap="ActiveFileResult">
         <include refid="selectActiveFileVo"/>
-        <where>  
-            <if test="workId != null "> and work_id = #{workId}</if>
-            <if test="fileCategory != null  and fileCategory != ''"> and file_category = #{fileCategory}</if>
-            <if test="fileName != null  and fileName != ''"> and file_name like concat('%', #{fileName}, '%')</if>
-            <if test="fileStoragePath != null  and fileStoragePath != ''"> and file_storage_path = #{fileStoragePath}</if>
+        <where>
+            <if test="workId != null ">and work_id = #{workId}</if>
+            <if test="fileCategory != null  and fileCategory != ''">and file_category = #{fileCategory}</if>
+            <if test="fileName != null  and fileName != ''">and file_name like concat('%', #{fileName}, '%')</if>
+            <if test="fileStoragePath != null  and fileStoragePath != ''">and file_storage_path = #{fileStoragePath}
+            </if>
         </where>
     </select>
-    
+
     <select id="selectActiveFileByFileId" parameterType="Long" resultMap="ActiveFileResult">
         <include refid="selectActiveFileVo"/>
         where file_id = #{fileId}
@@ -40,14 +42,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="fileName != null and fileName != ''">file_name,</if>
             <if test="fileStoragePath != null and fileStoragePath != ''">file_storage_path,</if>
             <if test="uploadedAt != null">uploaded_at,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="workId != null">#{workId},</if>
             <if test="fileCategory != null and fileCategory != ''">#{fileCategory},</if>
             <if test="fileName != null and fileName != ''">#{fileName},</if>
             <if test="fileStoragePath != null and fileStoragePath != ''">#{fileStoragePath},</if>
             <if test="uploadedAt != null">#{uploadedAt},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updateActiveFile" parameterType="ActiveFile">
@@ -63,11 +65,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <delete id="deleteActiveFileByFileId" parameterType="Long">
-        delete from active_file where file_id = #{fileId}
+        delete
+        from active_file
+        where file_id = #{fileId}
     </delete>
 
     <delete id="deleteActiveFileByFileIds" parameterType="String">
-        delete from active_file where file_id in 
+        delete from active_file where file_id in
         <foreach item="fileId" collection="array" open="(" separator="," close=")">
             #{fileId}
         </foreach>

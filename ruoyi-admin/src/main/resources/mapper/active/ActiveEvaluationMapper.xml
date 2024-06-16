@@ -1,35 +1,54 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.active.mapper.ActiveEvaluationMapper">
-    
+
     <resultMap type="ActiveEvaluation" id="ActiveEvaluationResult">
-        <result property="evaId"    column="eva_id"    />
-        <result property="workId"    column="work_id"    />
-        <result property="judgeName"    column="judge_name"    />
-        <result property="scoreTeachingImplementation"    column="score_teaching_implementation"    />
-        <result property="scoreLessonPlan"    column="score_lesson_plan"    />
-        <result property="scoreVideoMaterial"    column="score_video_material"    />
-        <result property="scoreTalentTraining"    column="score_talent_training"    />
-        <result property="scoreCourseStandard"    column="score_course_standard"    />
-        <result property="scoreTeachingMaterial"    column="score_teaching_material"    />
-        <result property="finalScore"    column="final_score"    />
-        <result property="evaluatedAt"    column="evaluated_at"    />
+        <result property="evaId" column="eva_id"/>
+        <result property="workId" column="work_id"/>
+        <result property="judgeName" column="judge_name"/>
+        <result property="scoreTeachingImplementation" column="score_teaching_implementation"/>
+        <result property="scoreLessonPlan" column="score_lesson_plan"/>
+        <result property="scoreVideoMaterial" column="score_video_material"/>
+        <result property="scoreTalentTraining" column="score_talent_training"/>
+        <result property="scoreCourseStandard" column="score_course_standard"/>
+        <result property="scoreTeachingMaterial" column="score_teaching_material"/>
+        <result property="finalScore" column="final_score"/>
+        <result property="evaluatedAt" column="evaluated_at"/>
+        <association property="activeWorks" javaType="ActiveWorks" column="work_id">
+            <result property="workName" column="work_name"/>
+            <result property="schoolName" column="school_name"/>
+            <result property="participant" column="participant"/>
+            <result property="contactInfo" column="contact_info"/>
+            <result property="averageScore" column="average_score"/>
+            <result property="groupName" column="group_name"/>
+            <result property="viewCount" column="view_count"/>
+            <result property="createTime" column="create_time"/>
+        </association>
     </resultMap>
 
     <sql id="selectActiveEvaluationVo">
-        select eva_id, work_id, judge_name, score_teaching_implementation, score_lesson_plan, score_video_material, score_talent_training, score_course_standard, score_teaching_material, final_score, evaluated_at from active_evaluation
+        SELECT *
+        FROM active_evaluation
+        LEFT JOIN active_works
+        ON active_evaluation.work_id = active_works.work_id
     </sql>
 
     <select id="selectActiveEvaluationList" parameterType="ActiveEvaluation" resultMap="ActiveEvaluationResult">
         <include refid="selectActiveEvaluationVo"/>
-        <where>  
-            <if test="workId != null "> and work_id = #{workId}</if>
-            <if test="judgeName != null  and judgeName != ''"> and judge_name like concat('%', #{judgeName}, '%')</if>
+        <where>
+            <if test="workId != null ">and work_id = #{workId}</if>
+            <if test="judgeName != null  and judgeName != ''">and judge_name like concat('%', #{judgeName}, '%')</if>
+            <if test="activeWorks != null">
+                <if test="activeWorks.workName != null and activeWorks.workName != ''">and active_works.work_name like concat('%', #{activeWorks.workName}, '%')</if>
+                <if test="activeWorks.schoolName != null and activeWorks.schoolName != ''">and active_works.school_name like concat('%', #{activeWorks.schoolName}, '%')</if>
+                <if test="activeWorks.participant != null and activeWorks.participant != ''">and active_works.participant like concat('%', #{activeWorks.participant}, '%')</if>
+                <if test="activeWorks.groupName != null and activeWorks.groupName != ''">and active_works.group_name = #{activeWorks.groupName}</if>
+            </if>
         </where>
     </select>
-    
+
     <select id="selectActiveEvaluationByEvaId" parameterType="Long" resultMap="ActiveEvaluationResult">
         <include refid="selectActiveEvaluationVo"/>
         where eva_id = #{evaId}
@@ -38,6 +57,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectActiveEvaluationByWorkId" parameterType="Long" resultMap="ActiveEvaluationResult">
         <include refid="selectActiveEvaluationVo"/>
         where work_id = #{workId}
+    </select>
+
+    <!--    和works连表查询-->
+    <select id="selectActiveEvaluationAndActiveWorksByWorkId" parameterType="ActiveEvaluation"
+            resultMap="ActiveEvaluationResult">
+
     </select>
 
     <insert id="insertActiveEvaluation" parameterType="ActiveEvaluation" useGeneratedKeys="true" keyProperty="evaId">
@@ -53,7 +78,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="scoreTeachingMaterial != null">score_teaching_material,</if>
             <if test="finalScore != null">final_score,</if>
             <if test="evaluatedAt != null">evaluated_at,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="workId != null">#{workId},</if>
             <if test="judgeName != null">#{judgeName},</if>
@@ -65,7 +90,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="scoreTeachingMaterial != null">#{scoreTeachingMaterial},</if>
             <if test="finalScore != null">#{finalScore},</if>
             <if test="evaluatedAt != null">#{evaluatedAt},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updateActiveEvaluation" parameterType="ActiveEvaluation">
@@ -73,7 +98,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="SET" suffixOverrides=",">
             <if test="workId != null">work_id = #{workId},</if>
             <if test="judgeName != null">judge_name = #{judgeName},</if>
-            <if test="scoreTeachingImplementation != null">score_teaching_implementation = #{scoreTeachingImplementation},</if>
+            <if test="scoreTeachingImplementation != null">score_teaching_implementation =
+                #{scoreTeachingImplementation},
+            </if>
             <if test="scoreLessonPlan != null">score_lesson_plan = #{scoreLessonPlan},</if>
             <if test="scoreVideoMaterial != null">score_video_material = #{scoreVideoMaterial},</if>
             <if test="scoreTalentTraining != null">score_talent_training = #{scoreTalentTraining},</if>
@@ -86,11 +113,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <delete id="deleteActiveEvaluationByEvaId" parameterType="Long">
-        delete from active_evaluation where eva_id = #{evaId}
+        delete
+        from active_evaluation
+        where eva_id = #{evaId}
     </delete>
 
     <delete id="deleteActiveEvaluationByEvaIds" parameterType="String">
-        delete from active_evaluation where eva_id in 
+        delete from active_evaluation where eva_id in
         <foreach item="evaId" collection="array" open="(" separator="," close=")">
             #{evaId}
         </foreach>

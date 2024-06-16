@@ -1,7 +1,8 @@
 package com.ruoyi.active.service;
 
-import java.util.List;
 import com.ruoyi.active.domain.ActiveEvaluation;
+
+import java.util.List;
 
 /**
  * 作品评价Service接口
@@ -58,4 +59,5 @@ public interface IActiveEvaluationService
      * @return 结果
      */
     public int deleteActiveEvaluationByEvaId(Long evaId);
+
 }

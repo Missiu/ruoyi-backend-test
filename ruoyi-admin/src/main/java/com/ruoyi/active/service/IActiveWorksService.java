@@ -58,4 +58,5 @@ public interface IActiveWorksService
      * @return 结果
      */
     public int deleteActiveWorksByWorkId(Long workId);
+
 }

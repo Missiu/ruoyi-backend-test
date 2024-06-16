@@ -55,7 +55,8 @@ public class ActiveEvaluation extends BaseEntity
     /** 总得分 */
     @Excel(name = "总得分")
     private BigDecimal finalScore;
-
+    /** 作品信息 */
+    private ActiveWorks activeWorks;
     /** 评分时间 */
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "评分时间", width = 30, dateFormat = "yyyy-MM-dd")
@@ -161,20 +162,29 @@ public class ActiveEvaluation extends BaseEntity
         return evaluatedAt;
     }
 
+    public ActiveWorks getActiveWorks() {
+        return activeWorks;
+    }
+
+    public void setActiveWorks(ActiveWorks activeWorks) {
+        this.activeWorks = activeWorks;
+    }
+
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("evaId", getEvaId())
-            .append("workId", getWorkId())
-            .append("judgeName", getJudgeName())
-            .append("scoreTeachingImplementation", getScoreTeachingImplementation())
-            .append("scoreLessonPlan", getScoreLessonPlan())
-            .append("scoreVideoMaterial", getScoreVideoMaterial())
-            .append("scoreTalentTraining", getScoreTalentTraining())
-            .append("scoreCourseStandard", getScoreCourseStandard())
-            .append("scoreTeachingMaterial", getScoreTeachingMaterial())
-            .append("finalScore", getFinalScore())
-            .append("evaluatedAt", getEvaluatedAt())
-            .toString();
+        return "ActiveEvaluation{" +
+                "evaId=" + evaId +
+                ", workId=" + workId +
+                ", judgeName='" + judgeName + '\'' +
+                ", scoreTeachingImplementation=" + scoreTeachingImplementation +
+                ", scoreLessonPlan=" + scoreLessonPlan +
+                ", scoreVideoMaterial=" + scoreVideoMaterial +
+                ", scoreTalentTraining=" + scoreTalentTraining +
+                ", scoreCourseStandard=" + scoreCourseStandard +
+                ", scoreTeachingMaterial=" + scoreTeachingMaterial +
+                ", finalScore=" + finalScore +
+                ", activeWorks=" + activeWorks +
+                ", evaluatedAt=" + evaluatedAt +
+                '}';
     }
 }

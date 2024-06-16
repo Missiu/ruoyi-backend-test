@@ -60,7 +60,7 @@ public class ActiveWorksController extends BaseController
     }
 
     /**
-     * 获取作品详细信息
+     * 获取作品信息
      */
     @PreAuthorize("@ss.hasPermi('active:works:query')")
     @GetMapping(value = "/{workId}")
@@ -101,4 +101,8 @@ public class ActiveWorksController extends BaseController
     {
         return toAjax(activeWorksService.deleteActiveWorksByWorkIds(workIds));
     }
+
+    /**
+     * 通过workId列表查询作品信息
+     */
 }

@@ -1,11 +1,12 @@
 package com.ruoyi.active.service.impl;
 
-import java.util.List;
+import com.ruoyi.active.domain.ActiveEvaluation;
+import com.ruoyi.active.mapper.ActiveEvaluationMapper;
+import com.ruoyi.active.service.IActiveEvaluationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ruoyi.active.mapper.ActiveEvaluationMapper;
-import com.ruoyi.active.domain.ActiveEvaluation;
-import com.ruoyi.active.service.IActiveEvaluationService;
+
+import java.util.List;
 
 /**
  * 作品评价Service业务层处理
@@ -90,4 +91,6 @@ public class ActiveEvaluationServiceImpl implements IActiveEvaluationService
     {
         return activeEvaluationMapper.deleteActiveEvaluationByEvaId(evaId);
     }
+
+
 }

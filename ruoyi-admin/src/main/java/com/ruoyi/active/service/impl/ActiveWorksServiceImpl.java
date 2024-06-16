@@ -8,13 +8,16 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.ruoyi.active.domain.ActiveEvaluation;
+import com.ruoyi.active.domain.ActiveFile;
 import com.ruoyi.active.mapper.ActiveEvaluationMapper;
+import com.ruoyi.active.mapper.ActiveFileMapper;
 import com.ruoyi.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.active.mapper.ActiveWorksMapper;
 import com.ruoyi.active.domain.ActiveWorks;
 import com.ruoyi.active.service.IActiveWorksService;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 作品Service业务层处理
@@ -74,6 +77,7 @@ public class ActiveWorksServiceImpl implements IActiveWorksService {
      * @return 结果
      */
     @Override
+    @Transactional
     public int insertActiveWorks(ActiveWorks activeWorks) {
         activeWorks.setCreateTime(DateUtils.getNowDate());
         return activeWorksMapper.insertActiveWorks(activeWorks);

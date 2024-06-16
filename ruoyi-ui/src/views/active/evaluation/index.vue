@@ -9,6 +9,40 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
+      <el-form-item label="作品" prop="workName">
+        <el-input
+          v-model="queryParams['activeWorks.workName']"
+          placeholder="请输入作品名称"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="学校" prop="schoolName">
+        <el-input
+          v-model="queryParams['activeWorks.schoolName']"
+          placeholder="请输入学校"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="参赛人" prop="participant">
+        <el-input
+          v-model="queryParams['activeWorks.participant']"
+          placeholder="请输入参赛姓名"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="报名组别" prop="groupName">
+        <el-select v-model="queryParams['activeWorks.groupName']" placeholder="请选择报名组别" clearable>
+          <el-option
+            v-for="dict in dict.type.active_group_name"
+            :key="dict.value"
+            :label="dict.label"
+            :value="dict.value"
+          />
+        </el-select>
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -31,6 +65,8 @@
 
     <el-table v-loading="loading" :data="evaluationList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
+      <el-table-column label="学校" align="center" prop="activeWorks.schoolName" />
+      <el-table-column label="作品名称" align="center" prop="activeWorks.workName" />
       <el-table-column label="评委姓名" align="center" prop="judgeName" />
       <el-table-column label="教学实践" align="center" prop="scoreTeachingImplementation" />
       <el-table-column label="教案" align="center" prop="scoreLessonPlan" />
@@ -73,6 +109,7 @@ import { listEvaluation, getEvaluation, delEvaluation, addEvaluation, updateEval
 
 export default {
   name: "Evaluation",
+  dicts: ['active_judge_scope', 'active_group_name', 'active_user_type'],
   data() {
     return {
       // 遮罩层
@@ -99,6 +136,10 @@ export default {
         pageSize: 10,
         workId: null,
         judgeName: null,
+        'activeWorks.workName': null,
+        'activeWorks.schoolName': null,
+        'activeWorks.participant': null,
+        'activeWorks.groupName': null,
       },
       // 表单参数
       form: {},

@@ -2,6 +2,7 @@ package com.ruoyi.active.mapper;
 
 import java.util.List;
 import com.ruoyi.active.domain.ActiveFile;
+import org.springframework.stereotype.Component;
 
 /**
  * 作品相关文件Mapper接口
@@ -9,6 +10,7 @@ import com.ruoyi.active.domain.ActiveFile;
  * @author huzhihao
  * @date 2024-06-16
  */
+@Component
 public interface ActiveFileMapper 
 {
     /**

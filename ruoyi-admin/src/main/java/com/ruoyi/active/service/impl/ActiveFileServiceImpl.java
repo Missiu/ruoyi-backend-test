@@ -1,11 +1,12 @@
 package com.ruoyi.active.service.impl;
 
-import java.util.List;
+import com.ruoyi.active.domain.ActiveFile;
+import com.ruoyi.active.mapper.ActiveFileMapper;
+import com.ruoyi.active.service.IActiveFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ruoyi.active.mapper.ActiveFileMapper;
-import com.ruoyi.active.domain.ActiveFile;
-import com.ruoyi.active.service.IActiveFileService;
+
+import java.util.List;
 
 /**
  * 作品相关文件Service业务层处理
