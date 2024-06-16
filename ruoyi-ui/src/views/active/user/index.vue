@@ -93,7 +93,6 @@
 
     <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-<!--      <el-table-column label="主键" align="center" prop="userId" />-->
       <el-table-column label="身份" align="center" prop="userType">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.active_user_type" :value="scope.row.userType"/>
@@ -106,13 +105,7 @@
           <dict-tag :options="dict.type.active_group_name" :value="scope.row.groupName"/>
         </template>
       </el-table-column>
-<!--      <el-table-column label="评选范围" align="center" prop="judgeScope">-->
-<!--        <template slot-scope="scope">-->
-<!--          <dict-tag :options="dict.type.active_judge_scope" :value="scope.row.judgeScope"/>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
       <el-table-column label="账号名" align="center" prop="loginName" />
-<!--      <el-table-column label="密码" align="center" prop="password" />-->
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button

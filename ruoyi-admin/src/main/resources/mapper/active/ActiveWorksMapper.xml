@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.active.mapper.ActiveWorksMapper">
+    
+    <resultMap type="ActiveWorks" id="ActiveWorksResult">
+        <result property="workId"    column="work_id"    />
+        <result property="workName"    column="work_name"    />
+        <result property="schoolName"    column="school_name"    />
+        <result property="participant"    column="participant"    />
+        <result property="contactInfo"    column="contact_info"    />
+        <result property="averageScore"    column="average_score"    />
+        <result property="groupName"    column="group_name"    />
+        <result property="viewCount"    column="view_count"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectActiveWorksVo">
+        select work_id, work_name, school_name, participant, contact_info, average_score, group_name, view_count, create_time from active_works
+    </sql>
+
+    <select id="selectActiveWorksList" parameterType="ActiveWorks" resultMap="ActiveWorksResult">
+        <include refid="selectActiveWorksVo"/>
+        <where>  
+            <if test="workName != null  and workName != ''"> and work_name like concat('%', #{workName}, '%')</if>
+            <if test="schoolName != null  and schoolName != ''"> and school_name like concat('%', #{schoolName}, '%')</if>
+            <if test="participant != null  and participant != ''"> and participant like concat('%', #{participant}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectActiveWorksByWorkId" parameterType="Long" resultMap="ActiveWorksResult">
+        <include refid="selectActiveWorksVo"/>
+        where work_id = #{workId}
+    </select>
+
+    <insert id="insertActiveWorks" parameterType="ActiveWorks" useGeneratedKeys="true" keyProperty="workId">
+        insert into active_works
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="workName != null">work_name,</if>
+            <if test="schoolName != null">school_name,</if>
+            <if test="participant != null">participant,</if>
+            <if test="contactInfo != null">contact_info,</if>
+            <if test="averageScore != null">average_score,</if>
+            <if test="groupName != null">group_name,</if>
+            <if test="viewCount != null">view_count,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="workName != null">#{workName},</if>
+            <if test="schoolName != null">#{schoolName},</if>
+            <if test="participant != null">#{participant},</if>
+            <if test="contactInfo != null">#{contactInfo},</if>
+            <if test="averageScore != null">#{averageScore},</if>
+            <if test="groupName != null">#{groupName},</if>
+            <if test="viewCount != null">#{viewCount},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateActiveWorks" parameterType="ActiveWorks">
+        update active_works
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="workName != null">work_name = #{workName},</if>
+            <if test="schoolName != null">school_name = #{schoolName},</if>
+            <if test="participant != null">participant = #{participant},</if>
+            <if test="contactInfo != null">contact_info = #{contactInfo},</if>
+            <if test="averageScore != null">average_score = #{averageScore},</if>
+            <if test="groupName != null">group_name = #{groupName},</if>
+            <if test="viewCount != null">view_count = #{viewCount},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where work_id = #{workId}
+    </update>
+
+    <delete id="deleteActiveWorksByWorkId" parameterType="Long">
+        delete from active_works where work_id = #{workId}
+    </delete>
+
+    <delete id="deleteActiveWorksByWorkIds" parameterType="String">
+        delete from active_works where work_id in 
+        <foreach item="workId" collection="array" open="(" separator="," close=")">
+            #{workId}
+        </foreach>
+    </delete>
+</mapper>
