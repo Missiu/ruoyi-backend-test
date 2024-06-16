@@ -35,6 +35,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where eva_id = #{evaId}
     </select>
 
+    <select id="selectActiveEvaluationByWorkId" parameterType="Long" resultMap="ActiveEvaluationResult">
+        <include refid="selectActiveEvaluationVo"/>
+        where work_id = #{workId}
+    </select>
+
     <insert id="insertActiveEvaluation" parameterType="ActiveEvaluation" useGeneratedKeys="true" keyProperty="evaId">
         insert into active_evaluation
         <trim prefix="(" suffix=")" suffixOverrides=",">

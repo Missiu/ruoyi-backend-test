@@ -2,6 +2,8 @@ package com.ruoyi.active.mapper;
 
 import java.util.List;
 import com.ruoyi.active.domain.ActiveWorks;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 
 /**
  * 作品Mapper接口
@@ -9,6 +11,7 @@ import com.ruoyi.active.domain.ActiveWorks;
  * @author huzhihao
  * @date 2024-06-15
  */
+@Component
 public interface ActiveWorksMapper 
 {
     /**
