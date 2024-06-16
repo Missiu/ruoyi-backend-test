@@ -101,8 +101,4 @@ public class ActiveWorksController extends BaseController
     {
         return toAjax(activeWorksService.deleteActiveWorksByWorkIds(workIds));
     }
-
-    /**
-     * 通过workId列表查询作品信息
-     */
 }

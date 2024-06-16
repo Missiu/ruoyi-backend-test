@@ -11,11 +11,23 @@
         <result property="fileName" column="file_name"/>
         <result property="fileStoragePath" column="file_storage_path"/>
         <result property="uploadedAt" column="uploaded_at"/>
+        <association property="activeWorks" javaType="ActiveWorks" column="work_id">
+            <result property="workName" column="work_name"/>
+            <result property="schoolName" column="school_name"/>
+            <result property="participant" column="participant"/>
+            <result property="contactInfo" column="contact_info"/>
+            <result property="averageScore" column="average_score"/>
+            <result property="groupName" column="group_name"/>
+            <result property="viewCount" column="view_count"/>
+            <result property="createTime" column="create_time"/>
+        </association>
     </resultMap>
 
     <sql id="selectActiveFileVo">
-        select file_id, work_id, file_category, file_name, file_storage_path, uploaded_at
-        from active_file
+        SELECT *
+        FROM active_file
+        LEFT JOIN active_works
+        ON active_file.work_id = active_works.work_id
     </sql>
 
     <select id="selectActiveFileList" parameterType="ActiveFile" resultMap="ActiveFileResult">

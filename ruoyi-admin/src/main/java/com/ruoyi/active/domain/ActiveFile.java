@@ -41,7 +41,9 @@ public class ActiveFile extends BaseEntity
     @Excel(name = "上传时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date uploadedAt;
 
-    public void setFileId(Long fileId) 
+    private ActiveWorks activeWorks;
+
+    public void setFileId(Long fileId)
     {
         this.fileId = fileId;
     }
@@ -98,13 +100,22 @@ public class ActiveFile extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("fileId", getFileId())
-            .append("workId", getWorkId())
-            .append("fileCategory", getFileCategory())
-            .append("fileName", getFileName())
-            .append("fileStoragePath", getFileStoragePath())
-            .append("uploadedAt", getUploadedAt())
-            .toString();
+        return "ActiveFile{" +
+                "fileId=" + fileId +
+                ", workId=" + workId +
+                ", fileCategory='" + fileCategory + '\'' +
+                ", fileName='" + fileName + '\'' +
+                ", fileStoragePath='" + fileStoragePath + '\'' +
+                ", uploadedAt=" + uploadedAt +
+                ", activeWorks=" + activeWorks +
+                '}';
+    }
+
+    public ActiveWorks getActiveWorks() {
+        return activeWorks;
+    }
+
+    public void setActiveWorks(ActiveWorks activeWorks) {
+        this.activeWorks = activeWorks;
     }
 }

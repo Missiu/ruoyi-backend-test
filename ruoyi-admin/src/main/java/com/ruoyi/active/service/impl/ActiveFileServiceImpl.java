@@ -6,6 +6,12 @@ import com.ruoyi.active.service.IActiveFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 /**
