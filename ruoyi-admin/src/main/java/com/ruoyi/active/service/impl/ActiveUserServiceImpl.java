@@ -62,6 +62,9 @@ public class ActiveUserServiceImpl implements IActiveUserService {
     @Override
     public int insertActiveUser(ActiveUser activeUser) {
         activeUser.setCreateTime(DateUtils.getNowDate());
+        if (StringUtils.isEmpty(activeUser.getPassword())){
+            activeUser.setPassword("123456");
+        }
         return activeUserMapper.insertActiveUser(activeUser);
     }
 

@@ -134,7 +134,6 @@ export default {
         this.worksList = response.rows;
         this.total = response.total;
         this.loading = false;
-        console.log(response)
       });
     },
     // 取消按钮

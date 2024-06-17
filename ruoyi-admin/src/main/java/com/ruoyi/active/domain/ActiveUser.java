@@ -1,140 +1,156 @@
 package com.ruoyi.active.domain;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
+import io.swagger.annotations.ApiModelProperty;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * 账号对象 active_user
- * 
+ *
  * @author huzhihao
  * @date 2024-06-15
  */
-public class ActiveUser extends BaseEntity
-{
+public class ActiveUser extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /** 主键 */
+    /**
+     * 主键
+     */
+    @ApiModelProperty(value = "主键",hidden=true)
     @Excel(name = "编号", cellType = Excel.ColumnType.NUMERIC)
     private Long userId;
 
-    /** 姓名 */
+    /**
+     * 姓名
+     */
+    @ApiModelProperty(value = "姓名",required = true)
     @Excel(name = "姓名")
     private String realName;
 
-    /** 学校 */
+    /**
+     * 学校
+     */
+    @ApiModelProperty(value = "学校",required = true)
     @Excel(name = "学校")
     private String schoolName;
 
-    /** 账号身份（1评委 2教师） */
-    @Excel(name = "账号身份", readConverterExp = "1=评委,2=教师")
+    /**
+     * 账号身份（1评委 2教师）
+     */
+    @ApiModelProperty(value = "账号身份",required = true,notes = "1-评委,2-教师")
+    @Excel(name = "账号身份", readConverterExp = "1-评委,2-教师")
     private String userType;
 
     /** 报名组别（1思政课程组 2公共基础课程组（不含思政） 3专业技能课程一组 4专业技能课程二组） */
-    @Excel(name = "报名组别", readConverterExp = "1=思政课程组,2=公共基础课程组（不含思政")
+    /**
+     * 如果是教师， 则报名组别required = true，评选范围隐藏
+     **/
+    @ApiModelProperty(value = "报名组别",notes = "1-思政课程组,2-公共基础课程组（不含思政）,3-专业技能课程一组,4-专业技能课程二组")
+    @Excel(name = "报名组别", readConverterExp = "1思政课程组 2公共基础课程组（不含思政） 3专业技能课程一组 4专业技能课程二组")
     private String groupName;
 
-    /** 评选范围（1思政课程组 2公共基础课程组（不含思政） 3专业技能课程一组 4专业技能课程二组） */
-    @Excel(name = "评选范围", readConverterExp = "1=思政课程组,2=公共基础课程组（不含思政")
+    /**
+     * 评选范围（1思政课程组 2公共基础课程组（不含思政） 3专业技能课程一组 4专业技能课程二组）
+     */
+    @ApiModelProperty(value = "评选范围",notes = "1-思政课程组,2-公共基础课程组（不含思政）,3-专业技能课程一组,4-专业技能课程二组")
+    @Excel(name = "评选范围", readConverterExp = "1思政课程组 2公共基础课程组（不含思政） 3专业技能课程一组 4专业技能课程二组")
     private String judgeScope;
 
-    /** 账号名 */
+    /**
+     * 账号名
+     */
+    @ApiModelProperty(value = "账号名",required = true)
     @Excel(name = "账号名")
     private String loginName;
 
-    /** 密码 */
+    /**
+     * 密码
+     */
+    @ApiModelProperty(value = "密码",required = true)
     @Excel(name = "密码")
     private String password;
 
-    public void setUserId(Long userId) 
-    {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public Long getUserId() 
-    {
+    public Long getUserId() {
         return userId;
     }
-    public void setRealName(String realName) 
-    {
+
+    public void setRealName(String realName) {
         this.realName = realName;
     }
 
-    public String getRealName() 
-    {
+    public String getRealName() {
         return realName;
     }
-    public void setSchoolName(String schoolName) 
-    {
+
+    public void setSchoolName(String schoolName) {
         this.schoolName = schoolName;
     }
 
-    public String getSchoolName() 
-    {
+    public String getSchoolName() {
         return schoolName;
     }
-    public void setUserType(String userType) 
-    {
+
+    public void setUserType(String userType) {
         this.userType = userType;
     }
 
-    public String getUserType() 
-    {
+    public String getUserType() {
         return userType;
     }
-    public void setGroupName(String groupName) 
-    {
+
+    public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
 
-    public String getGroupName() 
-    {
+    public String getGroupName() {
         return groupName;
     }
-    public void setJudgeScope(String judgeScope) 
-    {
+
+    public void setJudgeScope(String judgeScope) {
         this.judgeScope = judgeScope;
     }
 
-    public String getJudgeScope() 
-    {
+    public String getJudgeScope() {
         return judgeScope;
     }
-    public void setLoginName(String loginName) 
-    {
+
+    public void setLoginName(String loginName) {
         this.loginName = loginName;
     }
 
-    public String getLoginName() 
-    {
+    public String getLoginName() {
         return loginName;
     }
-    public void setPassword(String password) 
-    {
+
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getPassword() 
-    {
+    public String getPassword() {
         return password;
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("userId", getUserId())
-            .append("realName", getRealName())
-            .append("schoolName", getSchoolName())
-            .append("userType", getUserType())
-            .append("groupName", getGroupName())
-            .append("judgeScope", getJudgeScope())
-            .append("loginName", getLoginName())
-            .append("password", getPassword())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("userId", getUserId())
+                .append("realName", getRealName())
+                .append("schoolName", getSchoolName())
+                .append("userType", getUserType())
+                .append("groupName", getGroupName())
+                .append("judgeScope", getJudgeScope())
+                .append("loginName", getLoginName())
+                .append("password", getPassword())
+                .append("createBy", getCreateBy())
+                .append("createTime", getCreateTime())
+                .append("updateBy", getUpdateBy())
+                .append("updateTime", getUpdateTime())
+                .toString();
     }
 }

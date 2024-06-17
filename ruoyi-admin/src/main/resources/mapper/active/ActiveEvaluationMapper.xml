@@ -55,7 +55,8 @@
     </select>
 
     <select id="selectActiveEvaluationByWorkId" parameterType="Long" resultMap="ActiveEvaluationResult">
-        <include refid="selectActiveEvaluationVo"/>
+        select *
+        from active_evaluation
         where work_id = #{workId}
     </select>
 

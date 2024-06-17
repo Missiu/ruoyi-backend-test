@@ -30,7 +30,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
  * @author huzhihao
  * @date 2024-06-15
  */
-@Api(tags = "作品信息")
+@Api(tags = "02-作品信息")
 @RestController
 @RequestMapping("/active/works")
 public class ActiveWorksController extends BaseController
