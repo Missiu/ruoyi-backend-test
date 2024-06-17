@@ -1,164 +1,187 @@
 package com.ruoyi.active.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ruoyi.common.annotation.Excel;
+import com.ruoyi.common.annotation.Excels;
+import com.ruoyi.common.core.domain.BaseEntity;
+
 import java.math.BigDecimal;
 import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import com.ruoyi.common.annotation.Excel;
-import com.ruoyi.common.core.domain.BaseEntity;
 
 /**
  * 作品评价对象 active_evaluation
- * 
+ *
  * @author huzhihao
  * @date 2024-06-16
  */
-public class ActiveEvaluation extends BaseEntity
-{
+public class ActiveEvaluation extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /** 评价ID */
+    /**
+     * 评价ID
+     */
+    @Excel(name = "作品ID", cellType = Excel.ColumnType.NUMERIC, width = 20, needMerge = true)
     private Long evaId;
 
-    /** 作品ID */
+    /**
+     * 作品ID
+     */
     private Long workId;
 
-    /** 评委姓名 */
+    /**
+     * 评委姓名
+     */
     @Excel(name = "评委姓名")
     private String judgeName;
 
-    /** 教学实施得分 */
+    /**
+     * 教学实施得分
+     */
     @Excel(name = "教学实施得分")
     private BigDecimal scoreTeachingImplementation;
 
-    /** 教案 */
+    /**
+     * 教案
+     */
     @Excel(name = "教案")
     private BigDecimal scoreLessonPlan;
 
-    /** 视频材料得分 */
+    /**
+     * 视频材料得分
+     */
     @Excel(name = "视频材料得分")
     private BigDecimal scoreVideoMaterial;
 
-    /** 人才培养得分 */
+    /**
+     * 人才培养得分
+     */
     @Excel(name = "人才培养得分")
     private BigDecimal scoreTalentTraining;
 
-    /** 课程标准得分 */
+    /**
+     * 课程标准得分
+     */
     @Excel(name = "课程标准得分")
     private BigDecimal scoreCourseStandard;
 
-    /** 教学材料得分 */
+    /**
+     * 教学材料得分
+     */
     @Excel(name = "教学材料得分")
     private BigDecimal scoreTeachingMaterial;
 
-    /** 总得分 */
+    /**
+     * 总得分
+     */
     @Excel(name = "总得分")
     private BigDecimal finalScore;
-    /** 作品信息 */
+
+    /**
+     * 作品信息
+     */
+    @Excels(
+            {
+                    @Excel(name = "作品名称", type = Excel.Type.EXPORT, targetAttr = "workName"),
+                    @Excel(name = "学校", type = Excel.Type.EXPORT, targetAttr = "schoolName"),
+                    @Excel(name = "参赛姓名", type = Excel.Type.EXPORT, targetAttr = "participant"),
+                    @Excel(name = "联系方式", type = Excel.Type.EXPORT, targetAttr = "contactInfo"),
+                    @Excel(name = "报名组别", type = Excel.Type.EXPORT, targetAttr = "groupName"),
+                    @Excel(name = "浏览次数", type = Excel.Type.EXPORT, targetAttr = "viewCount")
+            }
+    )
     private ActiveWorks activeWorks;
-    /** 评分时间 */
+    /**
+     * 评分时间
+     */
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "评分时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date evaluatedAt;
 
-    public void setEvaId(Long evaId) 
-    {
+    public void setEvaId(Long evaId) {
         this.evaId = evaId;
     }
 
-    public Long getEvaId() 
-    {
+    public Long getEvaId() {
         return evaId;
     }
-    public void setWorkId(Long workId) 
-    {
+
+    public void setWorkId(Long workId) {
         this.workId = workId;
     }
 
-    public Long getWorkId() 
-    {
+    public Long getWorkId() {
         return workId;
     }
-    public void setJudgeName(String judgeName) 
-    {
+
+    public void setJudgeName(String judgeName) {
         this.judgeName = judgeName;
     }
 
-    public String getJudgeName() 
-    {
+    public String getJudgeName() {
         return judgeName;
     }
-    public void setScoreTeachingImplementation(BigDecimal scoreTeachingImplementation) 
-    {
+
+    public void setScoreTeachingImplementation(BigDecimal scoreTeachingImplementation) {
         this.scoreTeachingImplementation = scoreTeachingImplementation;
     }
 
-    public BigDecimal getScoreTeachingImplementation() 
-    {
+    public BigDecimal getScoreTeachingImplementation() {
         return scoreTeachingImplementation;
     }
-    public void setScoreLessonPlan(BigDecimal scoreLessonPlan) 
-    {
+
+    public void setScoreLessonPlan(BigDecimal scoreLessonPlan) {
         this.scoreLessonPlan = scoreLessonPlan;
     }
 
-    public BigDecimal getScoreLessonPlan() 
-    {
+    public BigDecimal getScoreLessonPlan() {
         return scoreLessonPlan;
     }
-    public void setScoreVideoMaterial(BigDecimal scoreVideoMaterial) 
-    {
+
+    public void setScoreVideoMaterial(BigDecimal scoreVideoMaterial) {
         this.scoreVideoMaterial = scoreVideoMaterial;
     }
 
-    public BigDecimal getScoreVideoMaterial() 
-    {
+    public BigDecimal getScoreVideoMaterial() {
         return scoreVideoMaterial;
     }
-    public void setScoreTalentTraining(BigDecimal scoreTalentTraining) 
-    {
+
+    public void setScoreTalentTraining(BigDecimal scoreTalentTraining) {
         this.scoreTalentTraining = scoreTalentTraining;
     }
 
-    public BigDecimal getScoreTalentTraining() 
-    {
+    public BigDecimal getScoreTalentTraining() {
         return scoreTalentTraining;
     }
-    public void setScoreCourseStandard(BigDecimal scoreCourseStandard) 
-    {
+
+    public void setScoreCourseStandard(BigDecimal scoreCourseStandard) {
         this.scoreCourseStandard = scoreCourseStandard;
     }
 
-    public BigDecimal getScoreCourseStandard() 
-    {
+    public BigDecimal getScoreCourseStandard() {
         return scoreCourseStandard;
     }
-    public void setScoreTeachingMaterial(BigDecimal scoreTeachingMaterial) 
-    {
+
+    public void setScoreTeachingMaterial(BigDecimal scoreTeachingMaterial) {
         this.scoreTeachingMaterial = scoreTeachingMaterial;
     }
 
-    public BigDecimal getScoreTeachingMaterial() 
-    {
+    public BigDecimal getScoreTeachingMaterial() {
         return scoreTeachingMaterial;
     }
-    public void setFinalScore(BigDecimal finalScore) 
-    {
+
+    public void setFinalScore(BigDecimal finalScore) {
         this.finalScore = finalScore;
     }
 
-    public BigDecimal getFinalScore() 
-    {
+    public BigDecimal getFinalScore() {
         return finalScore;
     }
-    public void setEvaluatedAt(Date evaluatedAt) 
-    {
+
+    public void setEvaluatedAt(Date evaluatedAt) {
         this.evaluatedAt = evaluatedAt;
     }
 
-    public Date getEvaluatedAt() 
-    {
+    public Date getEvaluatedAt() {
         return evaluatedAt;
     }
 

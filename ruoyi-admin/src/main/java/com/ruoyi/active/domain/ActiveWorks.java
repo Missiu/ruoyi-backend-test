@@ -17,6 +17,7 @@ public class ActiveWorks extends BaseEntity
     private static final long serialVersionUID = 1L;
 
     /** 作品ID */
+    @Excel(name = "作品ID",cellType = Excel.ColumnType.NUMERIC)
     private Long workId;
 
     /** 作品名称 */
@@ -44,6 +45,7 @@ public class ActiveWorks extends BaseEntity
     private String groupName;
 
     /** 浏览次数 */
+    @Excel(name = "浏览次数")
     private Long viewCount;
 
     public void setWorkId(Long workId) 

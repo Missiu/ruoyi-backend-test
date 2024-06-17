@@ -2,7 +2,6 @@ package com.ruoyi.active.domain;
 
 import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
-import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -18,28 +17,28 @@ public class ActiveUser extends BaseEntity {
     /**
      * 主键
      */
-    @ApiModelProperty(value = "主键",hidden=true)
+
     @Excel(name = "编号", cellType = Excel.ColumnType.NUMERIC)
     private Long userId;
 
     /**
      * 姓名
      */
-    @ApiModelProperty(value = "姓名",required = true)
+
     @Excel(name = "姓名")
     private String realName;
 
     /**
      * 学校
      */
-    @ApiModelProperty(value = "学校",required = true)
+
     @Excel(name = "学校")
     private String schoolName;
 
     /**
      * 账号身份（1评委 2教师）
      */
-    @ApiModelProperty(value = "账号身份",required = true,notes = "1-评委,2-教师")
+
     @Excel(name = "账号身份", readConverterExp = "1-评委,2-教师")
     private String userType;
 
@@ -47,28 +46,27 @@ public class ActiveUser extends BaseEntity {
     /**
      * 如果是教师， 则报名组别required = true，评选范围隐藏
      **/
-    @ApiModelProperty(value = "报名组别",notes = "1-思政课程组,2-公共基础课程组（不含思政）,3-专业技能课程一组,4-专业技能课程二组")
+
     @Excel(name = "报名组别", readConverterExp = "1思政课程组 2公共基础课程组（不含思政） 3专业技能课程一组 4专业技能课程二组")
     private String groupName;
 
     /**
      * 评选范围（1思政课程组 2公共基础课程组（不含思政） 3专业技能课程一组 4专业技能课程二组）
      */
-    @ApiModelProperty(value = "评选范围",notes = "1-思政课程组,2-公共基础课程组（不含思政）,3-专业技能课程一组,4-专业技能课程二组")
+
     @Excel(name = "评选范围", readConverterExp = "1思政课程组 2公共基础课程组（不含思政） 3专业技能课程一组 4专业技能课程二组")
     private String judgeScope;
 
     /**
      * 账号名
      */
-    @ApiModelProperty(value = "账号名",required = true)
+
     @Excel(name = "账号名")
     private String loginName;
 
     /**
      * 密码
      */
-    @ApiModelProperty(value = "密码",required = true)
     @Excel(name = "密码")
     private String password;
 

@@ -36,7 +36,7 @@ public class ActiveUserController extends BaseController {
     /**
      * 新增账号
      */
-    @ApiOperation(value = "01-新增账号", notes = "管理员新增账号信息")
+    @ApiOperation(value = "新增账号", notes = "管理员新增账号信息")
     @PreAuthorize("@ss.hasPermi('active:user:add')")
     @Log(title = "账号", businessType = BusinessType.INSERT)
     @PostMapping
@@ -47,8 +47,8 @@ public class ActiveUserController extends BaseController {
     /**
      * 删除账号
      */
-    @ApiOperation(value = "02-删除账号", notes = "通过id删除账号信息")
-    @ApiImplicitParam(name = "userId", value = "账号ID", required = true, type = "Long")
+    @ApiOperation(value = "删除账号", notes = "通过id删除账号信息")
+    @ApiImplicitParam(name = "userIds", value = "账号ID", required = true, type = "Long")
     @PreAuthorize("@ss.hasPermi('active:user:remove')")
     @Log(title = "账号", businessType = BusinessType.DELETE)
     @DeleteMapping("/{userIds}")
@@ -59,7 +59,7 @@ public class ActiveUserController extends BaseController {
     /**
      * 修改账号
      */
-    @ApiOperation(value = "03-修改账号", notes = "管理员修改账号信息")
+    @ApiOperation(value = "修改账号", notes = "管理员修改账号信息")
     @PreAuthorize("@ss.hasPermi('active:user:edit')")
     @Log(title = "账号", businessType = BusinessType.UPDATE)
     @PutMapping
@@ -70,7 +70,7 @@ public class ActiveUserController extends BaseController {
     /**
      * 获取账号详细信息
      */
-    @ApiOperation(value = "04-查询账号", notes = "通过id查询账号信息")
+    @ApiOperation(value = "查询账号", notes = "通过id查询账号信息")
     @ApiImplicitParam(name = "userId", value = "账号ID", required = true, type = "Long")
     @PreAuthorize("@ss.hasPermi('active:user:query')")
     @GetMapping(value = "/{userId}")
@@ -81,8 +81,7 @@ public class ActiveUserController extends BaseController {
     /**
      * 查询账号列表
      */
-    @ApiOperation(value = "05-分页查询", notes = "分页查询账号信息")
-    @ApiImplicitParam(name = "activeUser", value = "查询的账号列表信息")
+    @ApiOperation(value = "分页查询", notes = "分页查询账号信息")
     @PreAuthorize("@ss.hasPermi('active:user:list')")
     @GetMapping("/list")
     public TableDataInfo list(ActiveUser activeUser) {
@@ -94,7 +93,7 @@ public class ActiveUserController extends BaseController {
     /**
      * 导入账号列表
      */
-    @ApiOperation(value = "06-导入账号", notes = "导入账号列表信息")
+    @ApiOperation(value = "导入账号", notes = "导入账号列表信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "file", value = "需要导入的用户信息列表文件", required = true, dataType = "MultipartFile", paramType = "form", dataTypeClass = MultipartFile.class),
             @ApiImplicitParam(name = "updateSupport", value = "是否更新已经存在的账号数据", required = true, dataType = "boolean", paramType = "form")
@@ -110,7 +109,7 @@ public class ActiveUserController extends BaseController {
         return AjaxResult.success(message);
     }
 
-    @ApiOperation(value = "07-下载模板", notes = "下载账号列表模板")
+    @ApiOperation(value = "下载模板", notes = "下载账号列表模板")
     @GetMapping("/importTemplate")
     public void importTemplate(HttpServletResponse response) {
         ExcelUtil<ActiveUser> util = new ExcelUtil<>(ActiveUser.class);
@@ -120,7 +119,7 @@ public class ActiveUserController extends BaseController {
     /**
      * 导出账号列表
      */
-    @ApiOperation(value = "08-导出账号", notes = "导出账号列表信息")
+    @ApiOperation(value = "导出账号", notes = "导出账号列表信息")
     @PreAuthorize("@ss.hasPermi('active:user:export')")
     @ApiImplicitParam(name = "activeUser", value = "需要导出的账号信息", required = true, dataTypeClass = ActiveUser.class)
     @Log(title = "账号", businessType = BusinessType.EXPORT)
