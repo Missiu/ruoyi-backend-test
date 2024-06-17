@@ -105,6 +105,11 @@
           <dict-tag :options="dict.type.active_group_name" :value="scope.row.groupName"/>
         </template>
       </el-table-column>
+      <el-table-column label="评选范围" align="center" prop="groupName">
+        <template slot-scope="scope">
+          <dict-tag :options="dict.type.active_judge_scope" :value="scope.row.judgeScope"/>
+        </template>
+      </el-table-column>
       <el-table-column label="账号名" align="center" prop="loginName" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">

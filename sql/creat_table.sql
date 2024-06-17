@@ -94,28 +94,6 @@ INSERT INTO `active_evaluation` (`work_id`, `judge_name`, `score_teaching_implem
                                  `final_score`)
 VALUES (2, '张三', 85.00, 88.00, 87.00, 86.00, 89.00, 90.00, 87.40),
        (3, '赵六', 78.00, 80.00, 79.00, 81.00, 82.00, 83.00, 80.00);
-INSERT INTO `active_file` (`work_id`, `file_category`, `file_name`, `file_storage_path`)
-VALUES (2, '作品图片', '作品图片.png',
-        'http://blog.huzhihao.top/blog-imgs/deploy/docker/attachments/68eb696d4a771101f1b4fe2bf4645511.png'),
-       (2, '视频', '视频1.mkv', 'https://www.w3schools.com/html/movie.mp4'),
-       (2, '视频', '视频2.mkv', 'https://www.w3schools.com/html/movie.mp4'),
-       (2, '教案', '教案.docx', 'D:/Code/Study/RuoYi-Vue/uploadPath/active/2/教案.docx'),
-       (2, '教学实施报告', '教学实施报告.pdf', 'http://www.leomay.com/upload/file/mmo-20170707165001.pdf'),
-       (2, '专业人才培养方案', '专业人才培养方案.docx',
-        'D:/Code/Study/RuoYi-Vue/uploadPath/active/2/专业人才培养方案.docx'),
-       (2, '课程标准', '课程标准.pdf', 'http://www.leomay.com/upload/file/mmo-20170707165001.pdf'),
-       (2, '其他附件', '其他附件1.pdf', 'http://www.leomay.com/upload/file/mmo-20170707165001.pdf'),
-
-       (3, '作品图片', '作品图片.png',
-        'http://blog.huzhihao.top/blog-imgs/deploy/docker/attachments/68eb696d4a771101f1b4fe2bf4645511.png'),
-       (3, '视频', '视频1.mkv', 'https://www.w3schools.com/html/movie.mp4'),
-       (3, '视频', '视频2.mkv', 'https://www.w3schools.com/html/movie.mp4'),
-       (3, '教案', '教案.docx', 'D:/Code/Study/RuoYi-Vue/uploadPath/active/2/教案.docx'),
-       (3, '教学实施报告', '教学实施报告.pdf', 'http://www.leomay.com/upload/file/mmo-20170707165001.pdf'),
-       (3, '专业人才培养方案', '专业人才培养方案.docx',
-        'D:/Code/Study/RuoYi-Vue/uploadPath/active/2/专业人才培养方案.docx'),
-       (3, '课程标准', '课程标准.pdf', 'http://www.leomay.com/upload/file/mmo-20170707165001.pdf'),
-       (3, '其他附件', '其他附件1.pdf', 'http://www.leomay.com/upload/file/mmo-20170707165001.pdf');
 
 
 -- ----------------------------
