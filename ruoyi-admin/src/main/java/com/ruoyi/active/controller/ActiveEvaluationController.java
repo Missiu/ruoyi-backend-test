@@ -8,6 +8,8 @@ import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.poi.ExcelUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,7 @@ import java.util.List;
  * @author huzhihao
  * @date 2024-06-16
  */
+@Api(tags = "作品评价")
 @RestController
 @RequestMapping("/active/evaluation")
 public class ActiveEvaluationController extends BaseController
@@ -31,6 +34,7 @@ public class ActiveEvaluationController extends BaseController
     /**
      * 查询作品评价列表
      */
+    @ApiOperation(value = "作品评价列表")
     @PreAuthorize("@ss.hasPermi('active:evaluation:list')")
     @GetMapping("/list")
     public TableDataInfo list(ActiveEvaluation activeEvaluation)
@@ -44,6 +48,7 @@ public class ActiveEvaluationController extends BaseController
     /**
      * 导出作品评价列表
      */
+    @ApiOperation(value = "导出作品评价列表")
     @PreAuthorize("@ss.hasPermi('active:evaluation:export')")
     @Log(title = "作品评价", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
@@ -57,6 +62,7 @@ public class ActiveEvaluationController extends BaseController
     /**
      * 获取作品评价详细信息
      */
+    @ApiOperation(value = "获取作品评价详细信息")
     @PreAuthorize("@ss.hasPermi('active:evaluation:query')")
     @GetMapping(value = "/{evaId}")
     public AjaxResult getInfo(@PathVariable("evaId") Long evaId)
@@ -67,6 +73,7 @@ public class ActiveEvaluationController extends BaseController
     /**
      * 新增作品评价
      */
+    @ApiOperation(value = "新增作品评价")
     @PreAuthorize("@ss.hasPermi('active:evaluation:add')")
     @Log(title = "作品评价", businessType = BusinessType.INSERT)
     @PostMapping
@@ -78,6 +85,7 @@ public class ActiveEvaluationController extends BaseController
     /**
      * 修改作品评价
      */
+    @ApiOperation(value = "修改作品评价")
     @PreAuthorize("@ss.hasPermi('active:evaluation:edit')")
     @Log(title = "作品评价", businessType = BusinessType.UPDATE)
     @PutMapping
@@ -89,6 +97,7 @@ public class ActiveEvaluationController extends BaseController
     /**
      * 删除作品评价
      */
+    @ApiOperation(value = "删除作品评价")
     @PreAuthorize("@ss.hasPermi('active:evaluation:remove')")
     @Log(title = "作品评价", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{evaIds}")

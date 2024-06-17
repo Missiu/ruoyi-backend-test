@@ -2,6 +2,9 @@ package com.ruoyi.active.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +30,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
  * @author huzhihao
  * @date 2024-06-15
  */
+@Api(tags = "作品信息")
 @RestController
 @RequestMapping("/active/works")
 public class ActiveWorksController extends BaseController
@@ -37,6 +41,7 @@ public class ActiveWorksController extends BaseController
     /**
      * 查询作品列表
      */
+    @ApiOperation(value = "作品列表")
     @PreAuthorize("@ss.hasPermi('active:works:list')")
     @GetMapping("/list")
     public TableDataInfo list(ActiveWorks activeWorks)
@@ -49,6 +54,7 @@ public class ActiveWorksController extends BaseController
     /**
      * 导出作品列表
      */
+    @ApiOperation(value = "导出作品列表")
     @PreAuthorize("@ss.hasPermi('active:works:export')")
     @Log(title = "作品", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
@@ -62,6 +68,7 @@ public class ActiveWorksController extends BaseController
     /**
      * 获取作品信息
      */
+    @ApiOperation(value = "获取作品信息")
     @PreAuthorize("@ss.hasPermi('active:works:query')")
     @GetMapping(value = "/{workId}")
     public AjaxResult getInfo(@PathVariable("workId") Long workId)
@@ -72,6 +79,7 @@ public class ActiveWorksController extends BaseController
     /**
      * 新增作品
      */
+    @ApiOperation(value = "新增作品")
     @PreAuthorize("@ss.hasPermi('active:works:add')")
     @Log(title = "作品", businessType = BusinessType.INSERT)
     @PostMapping
@@ -83,6 +91,7 @@ public class ActiveWorksController extends BaseController
     /**
      * 修改作品
      */
+    @ApiOperation(value = "修改作品")
     @PreAuthorize("@ss.hasPermi('active:works:edit')")
     @Log(title = "作品", businessType = BusinessType.UPDATE)
     @PutMapping
@@ -94,6 +103,7 @@ public class ActiveWorksController extends BaseController
     /**
      * 删除作品
      */
+    @ApiOperation(value = "删除作品")
     @PreAuthorize("@ss.hasPermi('active:works:remove')")
     @Log(title = "作品", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{workIds}")

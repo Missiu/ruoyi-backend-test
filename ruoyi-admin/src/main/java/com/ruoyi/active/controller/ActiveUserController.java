@@ -2,6 +2,9 @@ package com.ruoyi.active.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @author huzhihao
  * @date 2024-06-15
  */
+@Api(tags = "账号管理")
 @RestController
 @RequestMapping("/active/user")
 public class ActiveUserController extends BaseController
@@ -38,6 +42,7 @@ public class ActiveUserController extends BaseController
     /**
      * 查询账号列表
      */
+    @ApiOperation(value = "查询账号列表")
     @PreAuthorize("@ss.hasPermi('active:user:list')")
     @GetMapping("/list")
     public TableDataInfo list(ActiveUser activeUser)
@@ -50,6 +55,7 @@ public class ActiveUserController extends BaseController
     /**
      * 导入账号列表
      */
+    @ApiOperation(value = "导入账号列表")
     @Log(title = "活动账号列表管理", businessType = BusinessType.IMPORT)
     @PreAuthorize("@ss.hasPermi('active:user:import')")
     @PostMapping("/importData")
@@ -62,6 +68,7 @@ public class ActiveUserController extends BaseController
         return AjaxResult.success(message);
     }
 
+    @ApiOperation(value = "导入模板下载")
     @GetMapping("/importTemplate")
     public void importTemplate(HttpServletResponse response)
     {
@@ -71,6 +78,7 @@ public class ActiveUserController extends BaseController
     /**
      * 导出账号列表
      */
+    @ApiOperation(value = "导出账号列表")
     @Log(title = "账号", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, ActiveUser activeUser)
@@ -83,6 +91,7 @@ public class ActiveUserController extends BaseController
     /**
      * 获取账号详细信息
      */
+    @ApiOperation(value = "获取账号详细信息")
     @PreAuthorize("@ss.hasPermi('active:user:query')")
     @GetMapping(value = "/{userId}")
     public AjaxResult getInfo(@PathVariable("userId") Long userId)
@@ -93,6 +102,7 @@ public class ActiveUserController extends BaseController
     /**
      * 新增账号
      */
+    @ApiOperation(value = "新增账号")
     @PreAuthorize("@ss.hasPermi('active:user:add')")
     @Log(title = "账号", businessType = BusinessType.INSERT)
     @PostMapping
@@ -104,6 +114,7 @@ public class ActiveUserController extends BaseController
     /**
      * 修改账号
      */
+    @ApiOperation(value = "修改账号")
     @PreAuthorize("@ss.hasPermi('active:user:edit')")
     @Log(title = "账号", businessType = BusinessType.UPDATE)
     @PutMapping
@@ -115,6 +126,7 @@ public class ActiveUserController extends BaseController
     /**
      * 删除账号
      */
+    @ApiOperation(value = "删除账号")
     @PreAuthorize("@ss.hasPermi('active:user:remove')")
     @Log(title = "账号", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{userIds}")
