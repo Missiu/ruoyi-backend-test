@@ -1,8 +1,7 @@
 package com.ruoyi.active.mapper;
 
 import java.util.List;
-import com.ruoyi.active.domain.ActiveWorks;
-import org.apache.ibatis.annotations.Mapper;
+import com.ruoyi.active.domain.entity.ActiveWorks;
 import org.springframework.stereotype.Component;
 
 /**

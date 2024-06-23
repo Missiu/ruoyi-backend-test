@@ -1,7 +1,7 @@
 package com.ruoyi.active.service;
 
 import java.util.List;
-import com.ruoyi.active.domain.ActiveUser;
+import com.ruoyi.common.core.domain.entity.ActiveUser;
 
 /**
  * 账号Service接口
@@ -68,4 +68,13 @@ public interface IActiveUserService
      * @return 结果
      */
     String importUser(List<ActiveUser> accountList, boolean isUpdateSupport, String operName);
+
+    /**
+     * 登录
+     *
+     * @param username 用户名
+     * @param password 密码
+     * @return token
+     */
+    public String login(String username, String password);
 }

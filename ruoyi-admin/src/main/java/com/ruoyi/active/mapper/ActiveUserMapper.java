@@ -1,7 +1,7 @@
 package com.ruoyi.active.mapper;
 
 import java.util.List;
-import com.ruoyi.active.domain.ActiveUser;
+import com.ruoyi.common.core.domain.entity.ActiveUser;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -60,4 +60,10 @@ public interface ActiveUserMapper
      * @return 结果
      */
     public int deleteActiveUserByUserIds(Long[] userIds);
+
+    /**
+     * 根据用户名称查询账号
+     *
+     */
+    public ActiveUser selectActiveUserByUsername(String username);
 }

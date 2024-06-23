@@ -1,6 +1,6 @@
 package com.ruoyi.active.service.impl;
 
-import com.ruoyi.active.domain.ActiveEvaluation;
+import com.ruoyi.active.domain.entity.ActiveEvaluation;
 import com.ruoyi.active.mapper.ActiveEvaluationMapper;
 import com.ruoyi.active.service.IActiveEvaluationService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.ruoyi.active.service;
 
-import com.ruoyi.active.domain.ActiveFile;
+import com.ruoyi.active.domain.entity.ActiveFile;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.ruoyi.active.service;
 
-import com.ruoyi.active.domain.ActiveEvaluation;
+import com.ruoyi.active.domain.entity.ActiveEvaluation;
 
 import java.util.List;
 

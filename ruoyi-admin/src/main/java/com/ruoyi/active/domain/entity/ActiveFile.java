@@ -1,4 +1,4 @@
-package com.ruoyi.active.domain;
+package com.ruoyi.active.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ruoyi.common.annotation.Excel;

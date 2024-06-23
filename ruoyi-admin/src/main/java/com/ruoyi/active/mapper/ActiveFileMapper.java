@@ -1,7 +1,7 @@
 package com.ruoyi.active.mapper;
 
 import java.util.List;
-import com.ruoyi.active.domain.ActiveFile;
+import com.ruoyi.active.domain.entity.ActiveFile;
 import org.springframework.stereotype.Component;
 
 /**
