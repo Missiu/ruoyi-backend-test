@@ -1,7 +1,7 @@
 package com.ruoyi.active.controller;
 
-import com.ruoyi.active.domain.ActiveFile;
-import com.ruoyi.active.domain.ActiveWorks;
+import com.ruoyi.active.domain.entity.ActiveFile;
+import com.ruoyi.active.domain.entity.ActiveWorks;
 import com.ruoyi.active.service.IActiveFileService;
 import com.ruoyi.active.service.IActiveWorksService;
 import com.ruoyi.common.annotation.Log;

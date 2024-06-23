@@ -1,6 +1,6 @@
 package com.ruoyi.active.controller;
 
-import com.ruoyi.active.domain.ActiveEvaluation;
+import com.ruoyi.active.domain.entity.ActiveEvaluation;
 import com.ruoyi.active.service.IActiveEvaluationService;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.controller.BaseController;

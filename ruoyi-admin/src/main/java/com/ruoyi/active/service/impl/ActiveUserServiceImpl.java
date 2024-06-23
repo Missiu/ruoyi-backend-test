@@ -1,10 +1,13 @@
 package com.ruoyi.active.service.impl;
 
-import com.ruoyi.active.domain.ActiveUser;
+import com.ruoyi.common.core.domain.entity.ActiveUser;
+import com.ruoyi.common.core.domain.model.LoginActiveUser;
 import com.ruoyi.active.mapper.ActiveUserMapper;
+import com.ruoyi.framework.web.service.ActiveTokenService;
 import com.ruoyi.active.service.IActiveUserService;
 import com.ruoyi.common.exception.ServiceException;
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.common.utils.SecurityUtils;
 import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.common.utils.bean.BeanValidators;
 import org.slf4j.Logger;
@@ -28,6 +31,9 @@ public class ActiveUserServiceImpl implements IActiveUserService {
 
     @Autowired
     private Validator validator;
+
+    @Autowired
+    private ActiveTokenService activeTokenService;
 
     private static final Logger log = LoggerFactory.getLogger(ActiveUserServiceImpl.class);
 
@@ -62,9 +68,11 @@ public class ActiveUserServiceImpl implements IActiveUserService {
     @Override
     public int insertActiveUser(ActiveUser activeUser) {
         activeUser.setCreateTime(DateUtils.getNowDate());
-        if (StringUtils.isEmpty(activeUser.getPassword())){
+        if (StringUtils.isEmpty(activeUser.getPassword())) {
             activeUser.setPassword("123456");
         }
+        // 密码加密
+        activeUser.setPassword(SecurityUtils.encryptPassword(activeUser.getPassword()));
         return activeUserMapper.insertActiveUser(activeUser);
     }
 
@@ -154,4 +162,25 @@ public class ActiveUserServiceImpl implements IActiveUserService {
         }
         return successMsg.toString();
     }
+
+    /**
+     * 登录
+     * @param username 用户名
+     * @param password 密码
+     * @return
+     */
+    @Override
+    public String login(String username, String password) {
+        ActiveUser activeUser = activeUserMapper.selectActiveUserByUsername(username);
+        if (activeUser == null){
+            throw new ServiceException("账号不存在");
+        }
+        if (!SecurityUtils.matchesPassword(password,activeUser.getPassword())){
+            throw new ServiceException("密码错误");
+        }
+        LoginActiveUser loginActiveUser = new LoginActiveUser(activeUser.getUserId(),activeUser);
+        return activeTokenService.createActiveToken(loginActiveUser);
+    }
+
+
 }

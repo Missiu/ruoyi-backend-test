@@ -1,7 +1,7 @@
 package com.ruoyi.active.service;
 
 import java.util.List;
-import com.ruoyi.active.domain.ActiveWorks;
+import com.ruoyi.active.domain.entity.ActiveWorks;
 
 /**
  * 作品Service接口
