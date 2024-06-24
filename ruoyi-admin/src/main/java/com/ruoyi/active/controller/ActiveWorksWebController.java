@@ -12,8 +12,11 @@ import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.enums.BusinessType;
+import com.ruoyi.common.exception.file.FileSizeLimitExceededException;
+import com.ruoyi.common.exception.file.InvalidExtensionException;
 import com.ruoyi.common.utils.file.FileUploadUtils;
 import com.ruoyi.common.utils.file.FileUtils;
+import com.ruoyi.common.utils.file.MimeTypeUtils;
 import com.ruoyi.framework.config.ServerConfig;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -73,6 +76,28 @@ public class ActiveWorksWebController extends BaseController {
     @PostMapping("/file/add")
     public AjaxResult addFile(@RequestPart MultipartFile file, ActiveFile activeFile) {
         try {
+            String[] allowedExtension = {"mp4", "pdf"};
+            // 获取文件后缀
+            String extension = FileUploadUtils.getExtension(file);
+            String originalFilename = file.getOriginalFilename();
+            long size = file.getSize();
+            // 文件大小校验
+            if (extension.equals("mp4")){
+                // 500m
+                if (size > 500 * 1024 * 1024)
+                {
+                    throw new FileSizeLimitExceededException(500);
+                }
+            }else if (extension.equals("pdf")){
+                // 500m
+                if (size > 100 * 1024 * 1024)
+                {
+                    throw new FileSizeLimitExceededException(500);
+                }
+            }else {
+                throw new InvalidExtensionException.InvalidFlashExtensionException(allowedExtension, extension,
+                        originalFilename);
+            }
             ActiveWorks activeWork = activeWorksService.selectActiveWorksByWorkId(activeFile.getWorkId());
             // 上传文件路径
             String filePath = RuoYiConfig.getProfile() + "/active"

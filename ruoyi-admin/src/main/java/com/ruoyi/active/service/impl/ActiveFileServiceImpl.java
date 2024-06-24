@@ -3,8 +3,12 @@ package com.ruoyi.active.service.impl;
 import com.ruoyi.active.domain.entity.ActiveFile;
 import com.ruoyi.active.mapper.ActiveFileMapper;
 import com.ruoyi.active.service.IActiveFileService;
+import com.ruoyi.common.exception.file.FileSizeLimitExceededException;
+import com.ruoyi.common.exception.file.InvalidExtensionException;
+import com.ruoyi.common.utils.file.FileUploadUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -91,4 +95,5 @@ public class ActiveFileServiceImpl implements IActiveFileService
     {
         return activeFileMapper.deleteActiveFileByFileId(fileId);
     }
+
 }

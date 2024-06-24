@@ -1,6 +1,7 @@
 package com.ruoyi.active.service;
 
 import com.ruoyi.active.domain.entity.ActiveFile;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -59,4 +60,5 @@ public interface IActiveFileService
      * @return 结果
      */
     public int deleteActiveFileByFileId(Long fileId);
+
 }

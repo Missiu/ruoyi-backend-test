@@ -198,7 +198,7 @@ public class ActiveUserServiceImpl implements IActiveUserService {
         if (!SecurityUtils.matchesPassword(upActiveUserPassword.getOldPassword(), activeUser.getPassword())) {
             throw new ServiceException("密码错误");
         }
-        activeUser.setPassword(SecurityUtils.encryptPassword(upActiveUserPassword.getOldPassword()));
+        activeUser.setPassword(SecurityUtils.encryptPassword(upActiveUserPassword.getPassword()));
         return activeUserMapper.updateActiveUserPassword(activeUser);
     }
 }
