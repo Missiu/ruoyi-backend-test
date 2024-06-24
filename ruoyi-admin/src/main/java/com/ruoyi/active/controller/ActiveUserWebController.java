@@ -4,8 +4,14 @@ import com.ruoyi.active.service.IActiveUserService;
 import com.ruoyi.common.constant.Constants;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.domain.entity.ActiveUser;
+import com.ruoyi.common.core.domain.model.LoginActiveUser;
 import com.ruoyi.common.core.domain.model.LoginActiveUserBody;
 import com.ruoyi.common.utils.ActiveSecurityUtils;
+import com.ruoyi.common.utils.SecurityUtils;
+import com.ruoyi.common.utils.StringUtils;
+import com.ruoyi.framework.security.handle.LogoutSuccessHandlerImpl;
+import com.ruoyi.framework.web.service.ActiveTokenService;
+import com.ruoyi.framework.web.service.TokenService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +19,20 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
 @Api(tags = "05-登陆管理", value = "活动模块中的的账号登陆API")
 @RestController
 @RequestMapping("/active/user/web")
 public class ActiveUserWebController {
     @Autowired
     private IActiveUserService activeUserService;
+
+    @Autowired
+    private ActiveTokenService activeTokenService;
+
+    @Autowired
+    private TokenService tokenService;
 
     @ApiOperation(value = "用户登录", notes = "用户前端进行登陆操作")
     @PostMapping("/login")
@@ -38,5 +52,16 @@ public class ActiveUserWebController {
         AjaxResult ajax = AjaxResult.success();
         ajax.put("activeUser", activeUser);
         return ajax;
+    }
+
+    @ApiOperation(value = "退出登陆",notes = "用户退出登陆")
+    @PostMapping("/logout")
+    public AjaxResult loginOut(HttpServletRequest request){
+        LoginActiveUser loginActiveUser = activeTokenService.getLoginActiveUser(request);
+        String token = loginActiveUser.getToken();
+        if (StringUtils.isNotEmpty(token)){
+            activeTokenService.delLoginUser(token);
+        }
+        return AjaxResult.success();
     }
 }

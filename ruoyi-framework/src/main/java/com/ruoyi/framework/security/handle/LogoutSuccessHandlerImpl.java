@@ -4,6 +4,10 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.common.constant.ActiveConstants;
+import com.ruoyi.common.core.domain.model.LoginActiveUser;
+import com.ruoyi.framework.web.service.ActiveTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
@@ -30,6 +34,9 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler
     @Autowired
     private TokenService tokenService;
 
+    @Autowired
+    private ActiveTokenService activeTokenService;
+
     /**
      * 退出处理
      * 
@@ -39,15 +46,29 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException
     {
-        LoginUser loginUser = tokenService.getLoginUser(request);
-        if (StringUtils.isNotNull(loginUser))
-        {
-            String userName = loginUser.getUsername();
-            // 删除用户缓存记录
-            tokenService.delLoginUser(loginUser.getToken());
-            // 记录用户退出日志
-            AsyncManager.me().execute(AsyncFactory.recordLogininfor(userName, Constants.LOGOUT, MessageUtils.message("user.logout.success")));
+        if(request.getRequestURI().contains(ActiveConstants.ACTIVE_URI)){
+            LoginActiveUser loginActiveUser = activeTokenService.getLoginActiveUser(request);
+            if (StringUtils.isNotNull(loginActiveUser))
+            {
+                String userName = loginActiveUser.getUsername();
+                // 删除用户缓存记录
+                tokenService.delLoginUser(loginActiveUser.getToken());
+                // 记录用户退出日志
+                AsyncManager.me().execute(AsyncFactory.recordLogininfor(userName, Constants.LOGOUT, MessageUtils.message("user.logout.success")));
+            }
+            ServletUtils.renderString(response, JSON.toJSONString(AjaxResult.success(MessageUtils.message("user.logout.success"))));
+        }else {
+            LoginUser loginUser = tokenService.getLoginUser(request);
+            if (StringUtils.isNotNull(loginUser))
+            {
+                String userName = loginUser.getUsername();
+                // 删除用户缓存记录
+                tokenService.delLoginUser(loginUser.getToken());
+                // 记录用户退出日志
+                AsyncManager.me().execute(AsyncFactory.recordLogininfor(userName, Constants.LOGOUT, MessageUtils.message("user.logout.success")));
+            }
+            ServletUtils.renderString(response, JSON.toJSONString(AjaxResult.success(MessageUtils.message("user.logout.success"))));
         }
-        ServletUtils.renderString(response, JSON.toJSONString(AjaxResult.success(MessageUtils.message("user.logout.success"))));
+
     }
 }
