@@ -1,12 +1,17 @@
 package com.ruoyi.active.controller;
 
+import com.ruoyi.active.domain.entity.ActiveEvaluation;
 import com.ruoyi.active.domain.entity.ActiveFile;
 import com.ruoyi.active.domain.entity.ActiveWorks;
+import com.ruoyi.active.service.IActiveEvaluationService;
 import com.ruoyi.active.service.IActiveFileService;
 import com.ruoyi.active.service.IActiveWorksService;
+import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.config.RuoYiConfig;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
+import com.ruoyi.common.core.page.TableDataInfo;
+import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.file.FileUploadUtils;
 import com.ruoyi.common.utils.file.FileUtils;
 import com.ruoyi.framework.config.ServerConfig;
@@ -15,8 +20,11 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Api(tags = "06-作品管理-客户端", value = "活动模块中的的客户端作品管理API")
 @RestController
@@ -31,12 +39,15 @@ public class ActiveWorksWebController extends BaseController {
 
     @Autowired
     private IActiveFileService activeFileService;
+
+    @Autowired
+    private IActiveEvaluationService activeEvaluationService;
     /**
      * 新增作品
      */
     @ApiOperation(value = "添加作品", notes = "添加作品信息")
-    @PostMapping
-    public AjaxResult add(@RequestBody ActiveWorks activeWorks)
+    @PostMapping("/addWorks")
+    public AjaxResult addWorks(@RequestBody ActiveWorks activeWorks)
     {
         return toAjax(activeWorksService.insertActiveWorks(activeWorks));
     }
@@ -45,8 +56,8 @@ public class ActiveWorksWebController extends BaseController {
      * 修改作品
      */
     @ApiOperation(value = "修改作品", notes = "修改作品信息")
-    @PutMapping
-    public AjaxResult edit(@RequestBody ActiveWorks activeWorks)
+    @PutMapping("/editWorks")
+    public AjaxResult editWorks(@RequestBody ActiveWorks activeWorks)
     {
         return toAjax(activeWorksService.updateActiveWorks(activeWorks));
     }
@@ -60,7 +71,7 @@ public class ActiveWorksWebController extends BaseController {
                     dataType = "MultipartFile", dataTypeClass = MultipartFile.class)
     })
     @PostMapping("/file/add")
-    public AjaxResult add(@RequestPart MultipartFile file, ActiveFile activeFile) {
+    public AjaxResult addFile(@RequestPart MultipartFile file, ActiveFile activeFile) {
         try {
             ActiveWorks activeWork = activeWorksService.selectActiveWorksByWorkId(activeFile.getWorkId());
             // 上传文件路径
@@ -85,4 +96,26 @@ public class ActiveWorksWebController extends BaseController {
         }
     }
 
+    /**
+     * 查询作品评价列表
+     */
+    @ApiOperation(value = "分页查询", notes = "分页查询作品评分信息")
+    @GetMapping("/list")
+    public TableDataInfo list(ActiveEvaluation activeEvaluation)
+    {
+        startPage();
+        List<ActiveEvaluation> list = activeEvaluationService.selectActiveEvaluationList(activeEvaluation);
+        return getDataTable(list);
+    }
+
+
+    /**
+     * 修改作品评价
+     */
+    @ApiOperation(value = "修改评分", notes = "修改作品评分信息")
+    @PutMapping("/editEvaluation")
+    public AjaxResult editEvaluation(@RequestBody ActiveEvaluation activeEvaluation)
+    {
+        return toAjax(activeEvaluationService.updateActiveEvaluation(activeEvaluation));
+    }
 }
