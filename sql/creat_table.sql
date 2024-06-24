@@ -55,6 +55,8 @@ CREATE TABLE `active_evaluation`
     `score_course_standard`         DECIMAL(5, 2) NOT NULL COMMENT '课程标准得分',
     `score_teaching_material`       DECIMAL(5, 2) NOT NULL COMMENT '教学材料得分',
     `final_score`                   DECIMAL(5, 2) NOT NULL COMMENT '总得分',
+    `comment`                       VARCHAR(256)  NOT NULL COMMENT '评审意见',
+    `status`                        VARCHAR(1)   NOT NULL COMMENT '状态(0未评分，1已评分)',
     `evaluated_at`                  DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '评价时间',
     PRIMARY KEY (`eva_id`),
     INDEX `idx_work_id_eva_id` (`work_id`, `eva_id`),

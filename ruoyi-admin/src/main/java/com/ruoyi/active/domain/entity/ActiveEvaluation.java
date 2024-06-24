@@ -70,6 +70,11 @@ public class ActiveEvaluation extends BaseEntity {
     @Excel(name = "教学材料得分")
     private BigDecimal scoreTeachingMaterial;
 
+    @Excel(name = "状态")
+    private String status;
+
+    @Excel(name = "评委评论")
+    private String comment;
     /**
      * 总得分
      */
@@ -90,6 +95,7 @@ public class ActiveEvaluation extends BaseEntity {
             }
     )
     private ActiveWorks activeWorks;
+
     /**
      * 评分时间
      */
@@ -193,6 +199,22 @@ public class ActiveEvaluation extends BaseEntity {
         this.activeWorks = activeWorks;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     @Override
     public String toString() {
         return "ActiveEvaluation{" +
@@ -205,6 +227,8 @@ public class ActiveEvaluation extends BaseEntity {
                 ", scoreTalentTraining=" + scoreTalentTraining +
                 ", scoreCourseStandard=" + scoreCourseStandard +
                 ", scoreTeachingMaterial=" + scoreTeachingMaterial +
+                ", status='" + status + '\'' +
+                ", comment='" + comment + '\'' +
                 ", finalScore=" + finalScore +
                 ", activeWorks=" + activeWorks +
                 ", evaluatedAt=" + evaluatedAt +

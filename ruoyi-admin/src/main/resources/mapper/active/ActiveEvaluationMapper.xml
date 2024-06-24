@@ -16,6 +16,8 @@
         <result property="scoreTeachingMaterial" column="score_teaching_material"/>
         <result property="finalScore" column="final_score"/>
         <result property="evaluatedAt" column="evaluated_at"/>
+        <result property="status" column="status"/>
+        <result property="comment" column="comment"/>
         <association property="activeWorks" javaType="ActiveWorks" column="work_id">
             <result property="workName" column="work_name"/>
             <result property="schoolName" column="school_name"/>
