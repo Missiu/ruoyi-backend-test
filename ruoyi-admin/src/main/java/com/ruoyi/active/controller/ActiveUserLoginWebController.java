@@ -9,27 +9,22 @@ import com.ruoyi.common.core.domain.entity.ActiveUser;
 import com.ruoyi.common.core.domain.model.LoginActiveUser;
 import com.ruoyi.common.core.domain.model.LoginActiveUserBody;
 import com.ruoyi.common.utils.ActiveSecurityUtils;
-import com.ruoyi.common.utils.SecurityUtils;
 import com.ruoyi.common.utils.StringUtils;
-import com.ruoyi.framework.security.handle.LogoutSuccessHandlerImpl;
 import com.ruoyi.framework.web.service.ActiveTokenService;
-import com.ruoyi.framework.web.service.TokenService;
 import com.ruoyi.web.controller.common.CommonController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-@Api(tags = "05-登陆管理", value = "活动模块中的的账号登陆API")
+@Api(tags = "05-登陆管理-客户端", value = "活动模块中的的客户端账号登陆API")
 @RestController
 @RequestMapping("/active/user/web")
-public class ActiveUserWebController extends BaseController {
+public class ActiveUserLoginWebController extends BaseController {
 
     private static final Logger log = LoggerFactory.getLogger(CommonController.class);
     @Autowired
