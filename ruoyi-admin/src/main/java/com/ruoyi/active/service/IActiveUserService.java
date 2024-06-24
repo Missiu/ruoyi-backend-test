@@ -1,6 +1,8 @@
 package com.ruoyi.active.service;
 
 import java.util.List;
+
+import com.ruoyi.active.domain.modle.UpActiveUserPassword;
 import com.ruoyi.common.core.domain.entity.ActiveUser;
 
 /**
@@ -77,4 +79,12 @@ public interface IActiveUserService
      * @return token
      */
     public String login(String username, String password);
+
+    /**
+     * 用户修改密码
+     * @param upActiveUserPassword 请求体
+     * @return 结果
+     */
+    int updateActiveUserPassword(UpActiveUserPassword upActiveUserPassword);
+
 }

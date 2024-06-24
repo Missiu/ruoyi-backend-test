@@ -1,7 +1,9 @@
 package com.ruoyi.active.controller;
 
+import com.ruoyi.active.domain.modle.UpActiveUserPassword;
 import com.ruoyi.active.service.IActiveUserService;
 import com.ruoyi.common.constant.Constants;
+import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.domain.entity.ActiveUser;
 import com.ruoyi.common.core.domain.model.LoginActiveUser;
@@ -12,8 +14,11 @@ import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.framework.security.handle.LogoutSuccessHandlerImpl;
 import com.ruoyi.framework.web.service.ActiveTokenService;
 import com.ruoyi.framework.web.service.TokenService;
+import com.ruoyi.web.controller.common.CommonController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
@@ -24,15 +29,14 @@ import javax.servlet.http.HttpServletRequest;
 @Api(tags = "05-登陆管理", value = "活动模块中的的账号登陆API")
 @RestController
 @RequestMapping("/active/user/web")
-public class ActiveUserWebController {
+public class ActiveUserWebController extends BaseController {
+
+    private static final Logger log = LoggerFactory.getLogger(CommonController.class);
     @Autowired
     private IActiveUserService activeUserService;
 
     @Autowired
     private ActiveTokenService activeTokenService;
-
-    @Autowired
-    private TokenService tokenService;
 
     @ApiOperation(value = "用户登录", notes = "用户前端进行登陆操作")
     @PostMapping("/login")
@@ -63,5 +67,11 @@ public class ActiveUserWebController {
             activeTokenService.delLoginUser(token);
         }
         return AjaxResult.success();
+    }
+
+    @ApiOperation(value = "修改密码",notes = "用户修改密码")
+    @PostMapping("/update")
+    public AjaxResult updatePassword(@RequestBody UpActiveUserPassword upActiveUserPassword){
+        return toAjax(activeUserService.updateActiveUserPassword(upActiveUserPassword));
     }
 }

@@ -89,6 +89,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where user_id = #{userId}
     </update>
 
+    <update id="updateActiveUserPassword" parameterType="ActiveUser">
+        update active_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="password != null and password != ''">password = #{password},</if>
+        </trim>
+        where user_id = #{userId}
+    </update>
+
     <delete id="deleteActiveUserByUserId" parameterType="Long">
         delete from active_user where user_id = #{userId}
     </delete>

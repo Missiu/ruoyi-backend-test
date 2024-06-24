@@ -46,6 +46,13 @@ public interface ActiveUserMapper
     public int updateActiveUser(ActiveUser activeUser);
 
     /**
+     * 修改密码
+     * @param activeUser 账号
+     * @return 结果
+     */
+    public int updateActiveUserPassword(ActiveUser activeUser);
+
+    /**
      * 删除账号
      * 
      * @param userId 账号主键

@@ -1,15 +1,16 @@
 package com.ruoyi.active.service.impl;
 
+import com.ruoyi.active.domain.modle.UpActiveUserPassword;
+import com.ruoyi.active.mapper.ActiveUserMapper;
+import com.ruoyi.active.service.IActiveUserService;
 import com.ruoyi.common.core.domain.entity.ActiveUser;
 import com.ruoyi.common.core.domain.model.LoginActiveUser;
-import com.ruoyi.active.mapper.ActiveUserMapper;
-import com.ruoyi.framework.web.service.ActiveTokenService;
-import com.ruoyi.active.service.IActiveUserService;
 import com.ruoyi.common.exception.ServiceException;
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.common.utils.SecurityUtils;
 import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.common.utils.bean.BeanValidators;
+import com.ruoyi.framework.web.service.ActiveTokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,6 +86,8 @@ public class ActiveUserServiceImpl implements IActiveUserService {
     @Override
     public int updateActiveUser(ActiveUser activeUser) {
         activeUser.setUpdateTime(DateUtils.getNowDate());
+        // 密码加密
+        activeUser.setPassword(SecurityUtils.encryptPassword(activeUser.getPassword()));
         return activeUserMapper.updateActiveUser(activeUser);
     }
 
@@ -165,6 +168,7 @@ public class ActiveUserServiceImpl implements IActiveUserService {
 
     /**
      * 登录
+     *
      * @param username 用户名
      * @param password 密码
      * @return
@@ -172,15 +176,29 @@ public class ActiveUserServiceImpl implements IActiveUserService {
     @Override
     public String login(String username, String password) {
         ActiveUser activeUser = activeUserMapper.selectActiveUserByUsername(username);
-        if (activeUser == null){
+        if (activeUser == null) {
             throw new ServiceException("账号不存在");
         }
-        if (!SecurityUtils.matchesPassword(password,activeUser.getPassword())){
+        if (!SecurityUtils.matchesPassword(password, activeUser.getPassword())) {
             throw new ServiceException("密码错误");
         }
-        LoginActiveUser loginActiveUser = new LoginActiveUser(activeUser.getUserId(),activeUser);
+        LoginActiveUser loginActiveUser = new LoginActiveUser(activeUser.getUserId(), activeUser);
         return activeTokenService.createActiveToken(loginActiveUser);
     }
 
-
+    @Override
+    public int updateActiveUserPassword(UpActiveUserPassword upActiveUserPassword) {
+        ActiveUser activeUser = activeUserMapper.selectActiveUserByUserId(upActiveUserPassword.getUserId());
+        if (activeUser == null) {
+            throw new ServiceException("账号不存在");
+        }
+        if (!upActiveUserPassword.getCheckPassword().equals(upActiveUserPassword.getPassword())) {
+            throw new ServiceException("两次密码不匹配");
+        }
+        if (!SecurityUtils.matchesPassword(upActiveUserPassword.getOldPassword(), activeUser.getPassword())) {
+            throw new ServiceException("密码错误");
+        }
+        activeUser.setPassword(SecurityUtils.encryptPassword(activeUser.getPassword()));
+        return activeUserMapper.updateActiveUserPassword(activeUser);
+    }
 }
